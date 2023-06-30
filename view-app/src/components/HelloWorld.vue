@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
- fetch('/api/cats').then(async res=>{
+ fetch('/api/user').then(async res=>{
   console.log(111,await res.json())
  })
 
