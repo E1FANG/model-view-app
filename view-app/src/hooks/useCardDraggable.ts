@@ -1,6 +1,8 @@
 import { Card } from "@/entity/card"
 import {Ref, ref } from "vue"
 
+const dragZIndex = '999'
+
 export const useCardDraggable = (card:Ref<Card>) =>{
 
   // 鼠标在当前容器的位置
@@ -19,12 +21,15 @@ export const useCardDraggable = (card:Ref<Card>) =>{
 
       card.value.dom.style.left = `${moveX}px`
       card.value.dom.style.top = `${moveY}px`
+      card.value.dom.style.zIndex = dragZIndex
     }
   }
   card.value.dom.onmouseup = ()=>{
     card.value.isDrag = false
+    card.value.dom.style.zIndex = String(card.value.ZIndex)
   }
   card.value.dom.onmouseleave = ()=>{
     card.value.isDrag = false
+    card.value.dom.style.zIndex = String(card.value.ZIndex)
   }
 }
