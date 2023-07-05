@@ -20,7 +20,8 @@ onMounted(()=>{
 
 <style  scoped>
 .white-board {
-  width: 3000px;
-  height: 3000px;
+  /* width: 3000px;
+  height: 3000px; */
+  transition: all 0.5s;
 }
 </style>
