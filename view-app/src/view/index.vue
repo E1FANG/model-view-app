@@ -13,7 +13,7 @@ onMounted(()=>{
 </script>
 
 <template>
-<div class="h-screen w-screen absolute overflow-scroll">
+<div class="h-screen w-screen absolute overflow-scroll" id="white-board-container">
   <div class="white-board bg-gray-100" ref="WhiteBoardDom" />
 </div>
 </template>

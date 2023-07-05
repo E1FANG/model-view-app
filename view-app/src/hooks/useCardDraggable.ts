@@ -16,8 +16,12 @@ export const useCardDraggable = (card:Ref<Card>) =>{
   }
   card.value.dom.onmousemove= (e)=>{
     if(card.value.isDrag){
-      const moveX = e.clientX - currentX.value
-      const moveY = e.clientY - currentY.value
+
+      const scrollTop = document.querySelector('#white-board-container')?.scrollTop || 0
+      const scrollLeft = document.querySelector('#white-board-container')?.scrollLeft || 0
+
+      const moveX = e.clientX - currentX.value + scrollLeft
+      const moveY = e.clientY - currentY.value + scrollTop
 
       card.value.dom.style.left = `${moveX}px`
       card.value.dom.style.top = `${moveY}px`
