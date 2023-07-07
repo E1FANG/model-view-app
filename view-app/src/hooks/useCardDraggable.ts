@@ -30,12 +30,12 @@ const expandWhiteBoard = (target: HTMLElement, cardId: number, currentPosition: 
             left: 300
           })
           whiteBoard.value.cards.forEach((card) => {
-            if (card.value.id === cardId) {
-              card.value.position.x = currentPosition.x + 300
-              card.value.position.y = currentPosition.y
-            } else {
-              card.value.position.x += 300
-            }
+            // if (card.value.id === cardId) {
+            //   card.value.position.x = currentPosition.x + 300
+            //   card.value.position.y = currentPosition.y
+            // } else {
+            card.value.position.x += 300
+            // }
           })
         }
         cardPositionUpdateQueue.push(leftExpand)
@@ -49,12 +49,12 @@ const expandWhiteBoard = (target: HTMLElement, cardId: number, currentPosition: 
         const rightExpand = () => {
           expandResult.right = false
           whiteBoard.value.width += 300
-          whiteBoard.value.cards.forEach((card) => {
-            if (card.value.id === cardId) {
-              card.value.position.x = currentPosition.x
-              card.value.position.y = currentPosition.y
-            }
-          })
+          // whiteBoard.value.cards.forEach((card) => {
+          //   if (card.value.id === cardId) {
+          //     card.value.position.x = currentPosition.x
+          //     card.value.position.y = currentPosition.y
+          //   }
+          // })
         }
         cardPositionUpdateQueue.push(rightExpand)
       },
@@ -68,12 +68,12 @@ const expandWhiteBoard = (target: HTMLElement, cardId: number, currentPosition: 
           expandResult.top = false
           whiteBoard.value.height += 300
           whiteBoard.value.cards.forEach((card) => {
-            if (card.value.id === cardId) {
-              card.value.position.x = currentPosition.x
-              card.value.position.y = currentPosition.y + 300
-            } else {
-              card.value.position.y += 300
-            }
+            // if (card.value.id === cardId) {
+            //   card.value.position.x = currentPosition.x
+            //   card.value.position.y = currentPosition.y + 300
+            // } else {
+            card.value.position.y += 300
+            // }
           })
         }
         cardPositionUpdateQueue.push(topExpand)
@@ -87,12 +87,12 @@ const expandWhiteBoard = (target: HTMLElement, cardId: number, currentPosition: 
         const bottomExpand = () => {
           expandResult.bottom = false
           whiteBoard.value.height += 300
-          whiteBoard.value.cards.forEach((card) => {
-            if (card.value.id === cardId) {
-              card.value.position.x = currentPosition.x
-              card.value.position.y = currentPosition.y
-            }
-          })
+          // whiteBoard.value.cards.forEach((card) => {
+          //   if (card.value.id === cardId) {
+          //     card.value.position.x = currentPosition.x
+          //     card.value.position.y = currentPosition.y
+          //   }
+          // })
         }
         cardPositionUpdateQueue.push(bottomExpand)
       },
@@ -128,7 +128,7 @@ export const useCardDraggable = (card: Ref<Card>) => {
     }
   }
 
-  const dragEnd = (e: MouseEvent) => {
+  const dragEnd = (e: MouseEvent, isMouseup: boolean = false) => {
     card.value.isDrag = false
     card.value.dom.style.zIndex = String(card.value.ZIndex)
 
@@ -142,6 +142,7 @@ export const useCardDraggable = (card: Ref<Card>) => {
 
     // 判断
     expandWhiteBoard(target, card.value.id, { x: moveX, y: moveY })
+    isMouseup && (card.value.position = { x: moveX, y: moveY })
     // 执行
     cardPositionUpdateQueue.forEach(method => method())
     // 重置
@@ -149,10 +150,9 @@ export const useCardDraggable = (card: Ref<Card>) => {
     expandResult = expandResultInitialValue
   }
   card.value.dom.onmouseup = (e) => {
-    dragEnd(e)
+    dragEnd(e, true)
   }
   card.value.dom.onmouseleave = (e) => {
-
     dragEnd(e)
   }
 }
